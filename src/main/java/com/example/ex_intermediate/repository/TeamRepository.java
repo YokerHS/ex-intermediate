@@ -22,11 +22,8 @@ public class TeamRepository {
 //    };
     private static final RowMapper<Team> TEAM_ROW_MAPPER = new BeanPropertyRowMapper<>(Team.class);
 
-    private final NamedParameterJdbcTemplate template;
-
-    public TeamRepository(NamedParameterJdbcTemplate template){
-        this.template = template;
-    }
+    @Autowired
+    public NamedParameterJdbcTemplate template;
 
     /**
      * チーム情報をすべて取得します.
