@@ -2,16 +2,19 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>show team detail</title>
+    <title>Show Team Detail</title>
 </head>
 <body>
 <h2>球団名</h2>
-<div>name</div>
+<div th:text="${team.teamName}">teamName</div>
+
 <h2>本拠地</h2>
-<div>headquarters</div>
+<div th:text="${team.headquarters}">headquarters</div>
+
 <h2>発足</h2>
-<div>inauguration</div>
+<div th:text="${team.inauguration}">inauguration</div>
+
 <h2>歴史</h2>
-<div>history</div>
+<div th:utext="${team.history}"></div>
 </body>
 </html>
