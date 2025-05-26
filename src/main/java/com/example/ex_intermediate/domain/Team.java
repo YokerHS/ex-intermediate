@@ -4,28 +4,17 @@ import lombok.Data;
 
 @Data
 public class Team {
-    /**
-     * チームのID
-     */
+    /** チームのID */
     private Integer id;
-    /**
-     * リーグ名
-     */
+    /** 所属リーグ名 */
     private String leagueName;
-    /**
-     *チーム名
-     */
+    /** チーム名 */
     private String teamName;
-    /**
-     *本部住所
-     */
-    private String  headquarters;
-    /**
-     *就任式日
-     */
+    /** 本部の所在地住所 */
+    private String headquarters;
+    /** 就任式の日付 */
     private String inauguration;
-    /**
-     *歴史
-     */
+    /** チームの歴史 */
     private String history;
 }
+
