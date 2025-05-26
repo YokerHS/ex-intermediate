@@ -1,10 +1,13 @@
 package com.example.ex_intermediate.controller;
 
 import com.example.ex_intermediate.domain.Hotel;
+import com.example.ex_intermediate.form.SearchForm;
 import com.example.ex_intermediate.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,8 @@ import java.util.List;
 @RequestMapping("hotel")
 public class HotelController {
 
+    private static final Integer MAX = 300000;
+
     @Autowired
     private HotelService hotelService;
 
@@ -31,8 +36,8 @@ public class HotelController {
      * @return ホテル検索画面
      */
     @GetMapping("")
-    public String search() {
-        return "search-byr-less-than-price";
+    public String search(Model model,SearchForm form) {
+        return "search-by-less-than-price";
     }
 
     /**
@@ -46,29 +51,31 @@ public class HotelController {
      * @param model ビューにデータを渡すためのModelオブジェクト
      * @return 検索結果画面
      */
-    @PostMapping("result")
-    public String result(String price, Model model) {
-        List<Hotel> hotelList;
+    @PostMapping("/result")
+    public String result(@Validated SearchForm form,
+                         BindingResult result,
+                         Model model) {
 
-        // 入力が空または未指定なら、全件表示
-        if (price == null || price.isBlank()) {
-            hotelList = hotelService.findAll();
-            model.addAttribute("hotelList", hotelList);
-            return "search-byr-less-than-price";
+        if (result.hasErrors()) {
+            return search(model,form);
         }
 
-        // 数値でない場合はエラー
-        try {
-            int priceValue = Integer.parseInt(price);
-            hotelList = hotelService.searchByLessThanPrice(priceValue);
-        } catch (NumberFormatException e) {
-            model.addAttribute("error", "数字を入力してください。");
-            return "search-byr-less-than-price";
+        if (Integer.parseInt(form.getPrice()) > MAX){
+            model.addAttribute("max","値段は最大30万円までの入力にしてください");
+            return "search-by-less-than-price";
         }
 
-        // 正常時の結果表示
+        List<Hotel> hotelList = hotelService.searchByLessThanPrice(form.getPrice());
+
+        if (hotelList.isEmpty()) {
+            model.addAttribute("searchPrice",form.getPrice());
+            model.addAttribute("blank","円以下のホテル情報は存在しません");
+            return "search-by-less-than-price";
+        }
+
         model.addAttribute("hotelList", hotelList);
-        return "search-byr-less-than-price";
+
+        return "search-by-less-than-price";
     }
 }
 

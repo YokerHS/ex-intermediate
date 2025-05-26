@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * ホテル情報を操作するサービス.
@@ -32,8 +33,11 @@ public class HotelService {
      * @param price 上限価格（この価格以下のホテルを取得）
      * @return 条件に一致するホテルのリスト
      */
-    public List<Hotel> searchByLessThanPrice(Integer price) {
-        return hotelRepository.searchByLessThanPrice(price);
+    public List<Hotel> searchByLessThanPrice(String  price) {
+        if (price == null || price.isBlank()) {
+            return  hotelRepository.findAll();
+        }
+        return hotelRepository.findByLessThanPrice(Integer.parseInt(price));
     }
 }
 
