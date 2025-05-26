@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class TeamService {
     @Autowired
-    TeamRepository teamRepository;
+    private TeamRepository teamRepository;
 
     /**
      * すべてのチーム情報を取得して返します.
