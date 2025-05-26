@@ -8,7 +8,7 @@
 <h1>野球チームの一覧</h1>
 
 <div th:each="team : ${teamList}">
-    <a th:href="@{/exam1/show-team-detail(id=${team.id})}">
+    <a th:href="@{/teams/showDetail(id=${team.id})}">
         <span th:text="${team.teamName}">チーム名</span>
     </a>
 </div>

@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("exam1")
+@RequestMapping("teams")
 public class TeamController {
     @Autowired
     public TeamService teamService;
 
     /**
-     * チームの一覧を表示する
+     * チームの一覧を表示する.
      *
      * @param model モデル
      * @return チームの一覧画面
      */
-    @GetMapping("show-all-teams")
+    @GetMapping("list")
     public String showAllTeams(Model model){
-        List<Team> teamList = teamService.showAllTeams();
+        List<Team> teamList = teamService.showList();
         model.addAttribute("teamList",teamList);
         return "show-all-teams";
     }
@@ -37,9 +37,9 @@ public class TeamController {
      * @param model モデルオ
      * @return 詳細画面
      */
-    @GetMapping("show-team-detail")
+    @GetMapping("showDetail")
     public String showTeamDetail(@RequestParam("id") Integer id, Model model) {
-        Team team = teamService.findTeamById(id);
+        Team team = teamService.showDetail(id);
         String formattedHistory = team.getHistory().replace("\n", "<br>");
         team.setHistory(formattedHistory);
         System.out.println(team.getHistory());

@@ -50,7 +50,7 @@ public class TeamRepository {
 
 
     /**
-     * 指定されたIDのチーム情報を1件取得します。
+     * 指定されたIDのチーム情報を1件取得します.
      *
      * @param id チームのID
      * @return 該当するチーム情報
