@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * チーム情報を操作するコントローラー.
+ *
+ */
 @Controller
-@RequestMapping("teams")
+@RequestMapping("team")
 public class TeamController {
     @Autowired
     public TeamService teamService;
@@ -40,9 +44,6 @@ public class TeamController {
     @GetMapping("showDetail")
     public String showTeamDetail(@RequestParam("id") Integer id, Model model) {
         Team team = teamService.showDetail(id);
-        String formattedHistory = team.getHistory().replace("\n", "<br>");
-        team.setHistory(formattedHistory);
-        System.out.println(team.getHistory());
         model.addAttribute("team", team);
         return "show-team-detail";
     }

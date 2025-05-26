@@ -1,7 +1,10 @@
 package com.example.ex_intermediate.domain;
 
 import lombok.Data;
-
+/**
+ * ホテル情報を表すドメイン.
+ *
+ */
 @Data
 public class Hotel {
     /** ホテルのID */

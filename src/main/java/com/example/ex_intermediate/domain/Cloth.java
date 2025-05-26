@@ -1,9 +1,12 @@
 package com.example.ex_intermediate.domain;
 
 import lombok.Data;
-
+/**
+ * 服情報を表すドメイン.
+ *
+ */
 @Data
-public class Clothe {
+public class Cloth {
     /** 衣類のID */
     private Integer id;
     /** カテゴリー */

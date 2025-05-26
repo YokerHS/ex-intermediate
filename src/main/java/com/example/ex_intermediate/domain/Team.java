@@ -2,6 +2,9 @@ package com.example.ex_intermediate.domain;
 
 import lombok.Data;
 
+/**
+ * チーム情報を表すドメイン.
+ */
 @Data
 public class Team {
     /** チームのID */

@@ -3,15 +3,19 @@ package com.example.ex_intermediate.repository;
 import com.example.ex_intermediate.domain.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * teamsテーブルを操作するリポジトリ.
+ *
+ */
 @Repository
 public class TeamRepository {
     /**
@@ -32,7 +36,7 @@ public class TeamRepository {
      *
      * @return チームの一覧リスト
      */
-    public List<Team> findAllTeams() {
+    public List<Team> findAll() {
         String sql = """
                     SELECT
                         id,
@@ -43,6 +47,7 @@ public class TeamRepository {
                         history
                     FROM
                         teams
+                    ORDER BY inauguration
                 """;
 
         return template.query(sql, TEAM_ROW_MAPPER);
@@ -55,7 +60,7 @@ public class TeamRepository {
      * @param id チームのID
      * @return 該当するチーム情報
      */
-    public Team findTeamByID(Integer id) {
+    public Team findByID(Integer id) {
         String sql = """
         SELECT
             id,
@@ -69,9 +74,10 @@ public class TeamRepository {
         WHERE
             id = :id
     """;
-
+        List<Team> list = new ArrayList<>();
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-        return template.queryForObject(sql, param, TEAM_ROW_MAPPER);
+        list.add(template.queryForObject(sql, param, TEAM_ROW_MAPPER));
+        return list.getFirst();
     }
 
 }

@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * チーム情報を操作するサービス.
+ *
+ */
 @Service
 public class TeamService {
     @Autowired
@@ -17,7 +22,7 @@ public class TeamService {
      * @return チームの一覧リスト
      */
     public List<Team> showList() {
-        return teamRepository.findAllTeams();
+        return teamRepository.findAll();
     }
 
     /**
@@ -27,7 +32,7 @@ public class TeamService {
      * @return 該当するチーム情報
      */
     public Team showDetail(Integer id) {
-        return teamRepository.findTeamByID(id);
+        return teamRepository.findByID(id);
     }
 
 }
