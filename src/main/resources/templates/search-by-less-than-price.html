@@ -8,7 +8,8 @@
 <h1>ホテル検索</h1>
 
 <form th:action="@{/hotel/result}" th:object="${searchForm}" method="post">
-    <input type="text" name = "price" />
+    <input type="text" name = "price" /><span> 円以下</span>
+
     <div th:errors="*{price}" style="color:red"></div>
     <div th:if="${blank}" style="color: red;">
         <p th:text="${searchPrice}+${blank}"></p>
@@ -16,6 +17,7 @@
     <div th:if="${max}" style="color: red;">
         <p th:text="${max}"></p>
     </div>
+
     <div><button type="submit">検索</button></div>
 </form>
 

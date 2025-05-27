@@ -60,7 +60,7 @@ public class HotelController {
             return search(model,form);
         }
 
-        if (Integer.parseInt(form.getPrice()) > MAX){
+        if (!form.getPrice().isBlank() && Integer.parseInt(form.getPrice()) > MAX ){
             model.addAttribute("max","値段は最大30万円までの入力にしてください");
             return "search-by-less-than-price";
         }
