@@ -6,7 +6,7 @@ import lombok.Data;
  *
  */
 @Data
-public class Cloth {
+public class Clothes {
     /** 衣類のID */
     private Integer id;
     /** カテゴリー */

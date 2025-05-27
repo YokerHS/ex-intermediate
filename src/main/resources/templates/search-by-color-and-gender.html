@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>衣類検索</title>
+</head>
+<body>
+
+<h1>衣類検索フォーム</h1>
+
+<!-- 検索フォーム -->
+<form th:action="@{/clothes/search}" th:object="${searchByGenderAndColorForm}" method="post">
+  <table>
+    <tr>
+      <td>
+        <!-- Gender (Radio) -->
+        <div>
+          <label>性別:</label><br/>
+          <div th:each="gender : ${genders}">
+            <input type="radio" th:field="*{gender}" th:value="${gender.code}" th:id="${'gender_' + gender.code}"/>
+            <label th:for="${'gender_' + gender.code}" th:text="${gender.label}"></label><br/>
+          </div>
+        </div>
+      </td>
+      <td>
+        <!-- Color (Dropdown) -->
+        <div>
+
+          <select th:field="*{color}" id="color">
+            <option value="" disabled>色を選択</option>
+            <option th:each="c : ${colors}" th:value="${c}" th:text="${c}"></option>
+          </select>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <div th:if="${empty}" style="color: red;">
+    <p th:text="${empty}"></p>
+  </div>
+  <button>検索</button>
+</form>
+
+<!-- 検索結果 -->
+<div th:if="${clothes != null}">
+  <h2>検索結果:</h2>
+  <table border="1"  th:each="item : ${clothes}">
+    <tr>
+      <th>ジャンル</th>
+      <td th:text="${item.genre}"></td>
+    </tr>
+    <tr>
+      <th>価格（円）</th>
+      <td th:text="${item.price}"></td>
+    </tr>
+    <tr>
+      <th>サイズ</th>
+      <td th:text="${item.size}"></td>
+    </tr>
+    <br>
+  </table>
+</div>
+
+</body>
+</html>
